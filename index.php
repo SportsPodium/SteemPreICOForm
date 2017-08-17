@@ -18,7 +18,7 @@
 </style>
 <body>
 	<div class="container">
-		<h1><img src="./img/sportspodium_logo.png" style="width: 300px;" /></h1>
+		<h1><img src="./img/sportspodium_logo.png" style="width: 150px; margin-bottom: 20;" /></h1>
 		<h1>Contribute to the Pre-ICO for SportsPodium</h1>
 		<?php include 'form.php'; ?>
 	</div>
