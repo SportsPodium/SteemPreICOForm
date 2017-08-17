@@ -39,13 +39,6 @@
 	</div>
 
 	<div class="form-group">
-		<label for="password" class="col-sm-4 control-label">amount of steem</label>
-		<div class="col-sm-6">
-			<input type="number" class="form-control" id="amount" required placeholder="amount of steem">
-		</div>
-	</div>
-
-	<div class="form-group">
 		<label for="password" class="col-sm-4 control-label">what to transfer</label>
 		<div class="col-sm-6">
 			<label class="radio-inline">
@@ -92,10 +85,24 @@
 	</div>
 </form>
 
+<form class="form-horizontal" style="display: none;" id="thankyou-form">
+	<div class="form-group" id="available-steem">
+		<label for="password" class="col-sm-4 control-label">available steem</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">unknown</p>
+		</div>
+	</div>
+</form>
+
 <script>
 	$(function() {
 		var $transferDescription = $('#transfer-description');
 		var $amount = $('#amount');
+		
+		var $username = $('#username');
+		var $password = $('#password');
+		var $amount = $('#amount');
+
 		var $alertSuccess = $('#alert-lookup-success');
 		var $alertError = $('#alert-lookup-error');
 		var $passwordContainer = $('#password-container');
@@ -109,11 +116,12 @@
 
 		$('#authentication-form').on('submit', function() {
 			console.log('submit form');
-			var username = $('#username').val();
-			var password = $('#password').val();
+			var username = $username.val();
 			getAccountDetails(username, function(err, response) {
 				console.log('submit form', err, response);
-				if (err) {
+				if (err || response === false) {
+					alert('Account not found');
+					$username.val('').focus();
 					return;
 				}
 				account = response;
@@ -128,14 +136,30 @@
 		});
 
 		$('[name=unit_transfer]').on('change', function() {
-			var val = $(this).val();
-			console.log('unit_transfer.change', val);
+			transfer_type = $(this).val();
+			console.log('unit_transfer.change', transfer_type);
 			var labels = {
 				STEEM: 'amount of STEEM',
 				SBD: 'amount of SBD'
 			};
 
-			$transferDescription.html(labels[val]); 
+			$transferDescription.html(labels[transfer_type]); 
 		});
+
+		$('#transfer-form').on('submit', function() {
+			console.log('submit form');
+			var username = $username.val();
+			var password = $password.val();
+			var amount = $amount.val();
+			transfer(username, password, amount + ' ' + transfer_type, '', function(err, response) {
+				console.log('transfer form', err, response);
+				if (err) {
+					return;
+				}
+				$formTransfer.hide();
+				$formThankyou.show();
+			});
+			return false;
+		});		
 	});
 </script>

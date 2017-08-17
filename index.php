@@ -23,11 +23,4 @@
 		<?php include 'form.php'; ?>
 	</div>
 </body>
-<script>
-$(function() {
-	steem.api.getAccounts(['ned', 'dan'], function(err, result) {
-		console.log(err, result);
-	});
-});
-</script>
 </html>
