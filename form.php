@@ -56,6 +56,14 @@
 			<input type="number" class="form-control" id="amount" required placeholder="amount">
 		</div>
 	</div>
+
+	<div class="form-group">
+		<label for="amount" class="col-sm-4 control-label" id="transfer-description">total pods</label>
+		<div class="col-sm-6">
+			<input type="number" class="form-control" id="pods" disabled placeholder="pods">
+		</div>
+	</div>
+
 	<div class="form-group">
 		<label for="password" class="col-sm-4 control-label">transfering to</label>
 		<div class="col-sm-6">
@@ -96,12 +104,15 @@
 
 <script>
 	$(function() {
+		<?php include 'currency.js'; ?>
+
 		var $transferDescription = $('#transfer-description');
 		var $amount = $('#amount');
 		
 		var $username = $('#username');
 		var $password = $('#password');
 		var $amount = $('#amount');
+		var $pods = $('#pods');
 
 		var $alertSuccess = $('#alert-lookup-success');
 		var $alertError = $('#alert-lookup-error');
@@ -161,5 +172,11 @@
 			});
 			return false;
 		});		
+
+		$amount.on('change', function() {
+			var val = $(this).val();
+			var pods = calculatePods(val, transfer_type);
+			$pods.val(pods);
+		});
 	});
 </script>
