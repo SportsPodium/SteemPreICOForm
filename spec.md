@@ -56,25 +56,25 @@ Total Pods Received for 150 Steem : 1499,427302
 
 # How will this work?
 
-1.The token sale will be based on the Sportspodium.io website and will run from 21 August 12:00 AM UCT - 25 August 2017 23:59 UCT.
+1. The token sale will be based on the Sportspodium.io website and will run from 21 August 12:00 AM UCT - 25 August 2017 23:59 UCT.
 
-2.You will need to register for the Pre token sale using with Name(Optional) and Steemit Account name to ensure we can capture and record your purchase.
+2. You will need to register for the Pre token sale using with Name(Optional) and Steemit Account name to ensure we can capture and record your purchase.
 
-3.You will transfer your Steem or Steem Dollar to the @sportspodium Steem Wallet using a specifically designed interface on our website.  The transfer will be captured on the Steem Blockchain and we are also keeping a record within a separate database.  This is to ensure that we can issue your Pod Tokens into your Pods Wallet as soon as our Blockchain is operational.
+3. You will transfer your Steem or Steem Dollar to the @sportspodium Steem Wallet using a specifically designed interface on our website.  The transfer will be captured on the Steem Blockchain and we are also keeping a record within a separate database.  This is to ensure that we can issue your Pod Tokens into your Pods Wallet as soon as our Blockchain is operational.
 
-4.We do not capture or use your private keys
+4. We do not capture or use your private keys
 
-5.We will capture the following fields in our database:
+5. We will capture the following fields in our database:
 
-6.Steemit Username
+6. Steemit Username
 
-7.Amount Steem / Steem Dollars transferred
+7. Amount Steem / Steem Dollars transferred
 
-8.Ethereum Price at time of transfer (For Exchange Rate Conversion purposes)
+8. Ethereum Price at time of transfer (For Exchange Rate Conversion purposes)
 
-9.Date / Time
+9. Date / Time
 
-10.Number of Pods Issued (Based on the conversion rate against the Ethereum Price)
+10. Number of Pods Issued (Based on the conversion rate against the Ethereum Price)
  
 * The following will be captured in the Steem Blockchain as we are using the Steem Transfer code in our website.
 
@@ -82,13 +82,13 @@ Total Pods Received for 150 Steem : 1499,427302
 transfer "<from_account>" "sportspodium" "<amount> SBD" "<memo_message>" true
 ```
  
-1.Steemit Username (From Account)
+1. Steemit Username (From Account)
 
-2.@SportsPodium (To Account)
+2. @SportsPodium (To Account)
 
-3.Amount SBD or STEEM
+3. Amount SBD or STEEM
 
-4.Memo Message (Number of Pods issued based on the Ethereum Conversion Rate at the time of Transfer)
+4. Memo Message (Number of Pods issued based on the Ethereum Conversion Rate at the time of Transfer)
  
 Your pods will be issued directly into your Pods Wallet on the SportsPodium Blockchain at the end of the main token sale.    
  
