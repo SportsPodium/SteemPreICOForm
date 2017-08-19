@@ -5,15 +5,11 @@ SportsPodium Pre-Tokensale on Steemit 23 - 30 August 2017 - How will it work?
 > As a user of Steemit, you have a limited chance to buy PODS for three days before the Token Sale (ICO) of SportsPodium Starts. We will give a massive discount on the value of these tokens to the Steem community, but we will limit the tokens available to US $500 000 of value in Steem. This we do to be fair to the broader crypto community.**
  
 # Why are we doing this?
-1.Our founders have been involved on this platform since the early days of Steemit. 
-
-2.We understand that a lot of the Steemit community is not necessarily Crypto Traders or Crypto technology specialists.  We therefor want to give you the opportunity to get your hands on some pods in an easy non-technology driven way.  
-
-3.We want to give the tech savy crypto traders the opportunity to get their hands at a special bonus price.
-
-4.One of our target markets, is the sporting supporter community.  We want to work with Steemit to build our blogging side of the SportsPodium solutio, right here on Steemit and we hope to bring thousands of new users to the platform. The mechanics and options around exactly how this is not clear right now, and we will only start working on that after our Token sale is complete.
-
-5.In short this is our way to thank the Steemit community.
+1. Our founders have been involved on this platform since the early days of Steemit. 
+2. We understand that a lot of the Steemit community is not necessarily Crypto Traders or Crypto technology specialists.  We therefor want to give you the opportunity to get your hands on some pods in an easy non-technology driven way.  
+3. We want to give the tech savy crypto traders the opportunity to get their hands at a special bonus price.
+4. One of our target markets, is the sporting supporter community.  We want to work with Steemit to build our blogging side of the SportsPodium solutio, right here on Steemit and we hope to bring thousands of new users to the platform. The mechanics and options around exactly how this is not clear right now, and we will only start working on that after our Token sale is complete.
+5. In short this is our way to thank the Steemit community.
  
 # Our transparent Process
  
@@ -22,10 +18,12 @@ We want to ensure that all stakeholders are comfortable and the process is trans
 ## Example:
 Example based on the prices quoted on CoinMarketcap.com at the time of writing this article.
  
-1.Ethereum price point :  $288.11
-2.Steem Price : $1.12
-3.Steem Dollar Price: $0,96
- 
+```
+Ethereum price point :  $288.11
+Steem Price : $1.12
+Steem Dollar Price: $0,96
+```
+
 ## Example using Steem
  
 Should you exchange 150 Steem for Pods based on the pricing above:
