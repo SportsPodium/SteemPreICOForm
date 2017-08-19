@@ -25,6 +25,21 @@
 	</div>
 </form>
 <form class="form-horizontal" style="display: none;" id="transfer-form">
+	<div class="form-group">
+		<label for="password" class="col-sm-4 control-label">current ethereum $ price</label>
+		<div class="col-sm-6">
+			<p class="form-control-static" id="eth-price">unknown</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="password" class="col-sm-4 control-label">current steem $ price</label>
+		<div class="col-sm-6">
+			<p class="form-control-static" id="steem-price">unknown</p>
+		</div>
+	</div>
+
+
 	<div class="form-group" id="available-steem">
 		<label for="password" class="col-sm-4 control-label">available steem</label>
 		<div class="col-sm-6">
@@ -109,6 +124,9 @@
 		var $transferDescription = $('#transfer-description');
 		var $amount = $('#amount');
 		
+		var $steemPrice = $('#steem-price');
+		var $ethereumPrice = $('#eth-price');
+
 		var $username = $('#username');
 		var $password = $('#password');
 		var $amount = $('#amount');
@@ -124,6 +142,13 @@
 		var $lookupButtonContainer = $('#lookup-button-container');
 		var account = {};
 		var transfer_type = 'STEEM';
+
+		$.when(
+			getEthereumPrice(),
+			getSteemPrice()).then(function() {
+				$steemPrice.html('$ ' + steem.price.usd);
+				$ethereumPrice.html('$ ' + eth.price.usd);
+			});
 
 		$('#authentication-form').on('submit', function() {
 			console.log('submit form');

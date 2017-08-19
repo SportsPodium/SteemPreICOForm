@@ -47,5 +47,5 @@
 	$.when(
 		getEthereumPrice(),
 		getSteemPrice()).then(function() {
-			calculatePods(150, 'STEEM');
-		})
+			
+		});
