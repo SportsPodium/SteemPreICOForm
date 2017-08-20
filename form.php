@@ -84,14 +84,14 @@
 		<div class="col-sm-6">
 			<div class="input-group">
 				<span class="input-group-addon">@</span>
-				<input disabled type="text" class="form-control" id="to" placeholder="steemit username" value="sportspodium">
+				<input disabled type="text" class="form-control" id="to" placeholder="steemit username" value="<?php echo $_ENV['steemit_username']; ?>">
 			</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="password" class="col-sm-4 control-label">memo</label>
 		<div class="col-sm-6">
-			<input disabled type="text" class="form-control" id="to" placeholder="memo" value="">
+			<input disabled type="text" class="form-control" id="memo" placeholder="memo" value="">
 		</div>
 	</div>
 	<div class="form-group" id="password-container">
@@ -119,6 +119,7 @@
 
 <script>
 	$(function() {
+		<?php include './js/app.js'; ?>
 		<?php include 'currency.js'; ?>
 
 		var $transferDescription = $('#transfer-description');
