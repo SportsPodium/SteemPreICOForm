@@ -132,6 +132,7 @@
 		var $password = $('#password');
 		var $amount = $('#amount');
 		var $pods = $('#pods');
+		var $memo = $('#memo');
 
 		var $alertSuccess = $('#alert-lookup-success');
 		var $alertError = $('#alert-lookup-error');
@@ -203,6 +204,10 @@
 			var val = $(this).val();
 			var pods = calculatePods(val, transfer_type);
 			$pods.val(pods);
+
+			var memo = 'transfer "' + $username.val() + '" "<?php echo getSteemitUsername(); ?>" "' + $amount.val() + ' ' + transfer_type + '" "' + pods + '" true';
+			$memo.val(memo);
+
 		});
 	});
 </script>
