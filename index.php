@@ -1,3 +1,9 @@
+<?php
+	function getSteemitUsername() {
+		if (isset($_ENV['steemit_username'])) return $_ENV['steemit_username'];
+		return null;
+	}
+?>
 <html>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css">

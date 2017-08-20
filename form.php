@@ -84,7 +84,7 @@
 		<div class="col-sm-6">
 			<div class="input-group">
 				<span class="input-group-addon">@</span>
-				<input disabled type="text" class="form-control" id="to" placeholder="steemit username" value="<?php echo $_ENV['steemit_username']; ?>">
+				<input disabled type="text" class="form-control" id="to" placeholder="steemit username" value="<?php echo getSteemitUsername() ?>">
 			</div>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
 <script>
 	$(function() {
 		<?php include './js/app.js'; ?>
-		<?php include 'currency.js'; ?>
+		<?php include './js/currency.js'; ?>
 
 		var $transferDescription = $('#transfer-description');
 		var $amount = $('#amount');
@@ -147,8 +147,8 @@
 		$.when(
 			getEthereumPrice(),
 			getSteemPrice()).then(function() {
-				$steemPrice.html('$ ' + steem.price.usd);
-				$ethereumPrice.html('$ ' + eth.price.usd);
+				$steemPrice.html('$ ' + steemPrice.price.usd);
+				$ethereumPrice.html('$ ' + ethPrice.price.usd);
 			});
 
 		$('#authentication-form').on('submit', function() {

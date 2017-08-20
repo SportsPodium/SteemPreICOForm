@@ -1,10 +1,10 @@
-	var eth = {};
-	var steem = {};
+	var ethPrice = {};
+	var steemPrice = {};
 	function getEthereumPrice() {
 		return $.get('https://coinmarketcap-nexuist.rhcloud.com/api/eth')
 			.then(function(result) {
 				console.log('ethereum.get', result);
-				eth = result;
+				ethPrice = result;
 			});
 
 	}
@@ -13,13 +13,13 @@
 		return $.get('https://coinmarketcap-nexuist.rhcloud.com/api/Steem')
 			.then(function(result) {
 				console.log('steem.get', result);
-				steem = result;
+				steemPrice = result;
 			});
 	}
 
 	function steemPerPod() {
-		var ethDollar = eth.price.usd;
-		var steemDollar = steem.price.usd;
+		var ethDollar = ethPrice.price.usd;
+		var steemDollar = steemPrice.price.usd;
 
 		var podsPerEthereum = 2000;
 		var dollarPerPod = podsPerEthereum / ethDollar;
@@ -43,9 +43,3 @@
 		console.log('totalCost', totalCost);
 		return totalCost;
 	}
-
-	$.when(
-		getEthereumPrice(),
-		getSteemPrice()).then(function() {
-			
-		});
