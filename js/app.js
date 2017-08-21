@@ -14,7 +14,7 @@ var getAccountDetails = function(username, cb) {
 var transfer = function(username, password, amount, memo, cb) {
 	var wif = steem.auth.toWif(username, password, 'active');
 
-	console.log('transfer', {username: username, amount: amount, memo: memo});
+	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo});
 	steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
 		console.log(err, result);
 		if (err) {

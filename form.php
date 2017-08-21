@@ -188,8 +188,8 @@
 			console.log('submit form');
 			var username = $username.val();
 			var password = $password.val();
-			var amount = $amount.val();
-			transfer(username, password, amount + ' ' + transfer_type, '', function(err, response) {
+			var amount = parseFloat($amount.val());
+			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, '', function(err, response) {
 				console.log('transfer form', err, response);
 				if (err) {
 					return;
@@ -204,8 +204,8 @@
 			var val = $(this).val();
 			var pods = calculatePods(val, transfer_type);
 			$pods.val(pods);
-
-			var memo = 'transfer "' + $username.val() + '" "<?php echo getSteemitUsername(); ?>" "' + $amount.val() + ' ' + transfer_type + '" "' + pods + '" true';
+			var amount = parseFloat($amount.val());
+			var memo = 'transfer "' + $username.val() + '" "<?php echo getSteemitUsername(); ?>" "' + amount.toFixed(3) + ' ' + transfer_type + '" "' + pods + '" true';
 			$memo.val(memo);
 
 		});

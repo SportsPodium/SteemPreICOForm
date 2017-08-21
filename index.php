@@ -1,7 +1,7 @@
 <?php
 	function getSteemitUsername() {
 		if (isset($_ENV['steemit_username'])) return $_ENV['steemit_username'];
-		return null;
+		return 'sportspodium';
 	}
 ?>
 <html>
