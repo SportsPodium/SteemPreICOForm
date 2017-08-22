@@ -103,7 +103,7 @@
 
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-6">
-			<button type="submit" class="btn btn-primary">Make Contribution</button>
+			<button id="submit-button" type="submit" class="btn btn-primary">Make Contribution</button>
 		</div>
 	</div>
 </form>
@@ -142,6 +142,7 @@
 		var $availableSBD = $('#available-sbd');
 		var $formTransfer = $('#transfer-form');
 		var $lookupButtonContainer = $('#lookup-button-container');
+		var $buttonSubmit = $('#submit-button');
 		var account = {};
 		var transfer_type = 'STEEM';
 
@@ -184,14 +185,16 @@
 			$transferDescription.html(labels[transfer_type]); 
 		});
 
-		$('#transfer-form').on('submit', function() {
+		$formTransfer.on('submit', function() {
 			console.log('submit form');
+			$buttonSubmit.prop('disabled', true);
 			var username = $username.val();
 			var password = $password.val();
 			var amount = parseFloat($amount.val());
 			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, '', function(err, response) {
 				console.log('transfer form', err, response);
 				if (err) {
+					$buttonSubmit.prop('disabled', false);
 					return;
 				}
 				$formTransfer.hide();
