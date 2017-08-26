@@ -190,8 +190,11 @@
 			$buttonSubmit.prop('disabled', true);
 			var username = $username.val();
 			var password = $password.val();
+			var memo = $memo.val();
+			var pods = $pods.val();
 			var amount = parseFloat($amount.val());
-			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, '', function(err, response) {
+
+			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, function(err, response) {
 				console.log('transfer form', err, response);
 				if (err) {
 					$buttonSubmit.prop('disabled', false);
