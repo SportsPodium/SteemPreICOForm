@@ -12,8 +12,16 @@
 
 	$conn = new mysqli($server, $username, $password, $db);
 
-	$sql = 'INSERT INTO pricing (`buffer`, `created_at`) VALUES ("' . json_encode($buf) . '", now())';
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
 
-	$conn->query($sql);
+	$sql = 'INSERT INTO eth (`json`, `created_at`) VALUES ("' . addslashes(json_encode($buf)) . '", now())';
+
+	if ($conn->query($sql) === TRUE) {
+		echo "New record created successfully";
+	} else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 
 	$conn->close();
