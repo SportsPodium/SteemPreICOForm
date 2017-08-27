@@ -73,9 +73,23 @@
 	</div>
 
 	<div class="form-group">
-		<label for="amount" class="col-sm-4 control-label" id="transfer-description">total pods</label>
+		<label for="amount" class="col-sm-4 control-label" >pods</label>
 		<div class="col-sm-6">
 			<input type="number" class="form-control" id="pods" disabled placeholder="pods">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="amount" class="col-sm-4 control-label" id="transfer-description">bonus pods</label>
+		<div class="col-sm-6">
+			<input type="number" class="form-control" id="bonus-pods" disabled placeholder="bonus pods">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="amount" class="col-sm-4 control-label" id="transfer-description">total pods</label>
+		<div class="col-sm-6">
+			<input type="number" class="form-control" id="total-pods" disabled placeholder="total pods">
 		</div>
 	</div>
 
@@ -132,6 +146,8 @@
 		var $password = $('#password');
 		var $amount = $('#amount');
 		var $pods = $('#pods');
+		var $podsTotal = $('#total-pods');
+		var $podsBonus = $('#bonus-pods');
 		var $memo = $('#memo');
 
 		var $alertSuccess = $('#alert-lookup-success');
@@ -191,7 +207,7 @@
 			var username = $username.val();
 			var password = $password.val();
 			var memo = $memo.val();
-			var pods = $pods.val();
+			var pods = $podsTotal.val();
 			var amount = parseFloat($amount.val());
 
 			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, function(err, response) {
@@ -209,9 +225,13 @@
 		$amount.on('change', function() {
 			var val = $(this).val();
 			var pods = calculatePods(val, transfer_type);
+			var podsBonus = calculateBonusPods(pods);
+			var podsTotal = pods + podsBonus;
 			$pods.val(pods);
+			$podsBonus.val(podsBonus);
+			$podsTotal.val(podsTotal);
 			var amount = parseFloat($amount.val());
-			var memo = 'transfer "' + $username.val() + '" "<?php echo getSteemitUsername(); ?>" "' + amount.toFixed(3) + ' ' + transfer_type + '" "' + pods + '" true';
+			var memo = 'transfer "' + $username.val() + '" "<?php echo getSteemitUsername(); ?>" "' + amount.toFixed(3) + ' ' + transfer_type + '" "' + podsTotal + '" true';
 			$memo.val(memo);
 
 		});

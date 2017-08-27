@@ -5,6 +5,7 @@
 			.then(function(result) {
 				console.log('ethereum.get', result);
 				ethPrice = result;
+				ethPrice.price.usd = 331.877;
 			});
 
 	}
@@ -14,6 +15,7 @@
 			.then(function(result) {
 				console.log('steem.get', result);
 				steemPrice = result;
+				steemPrice.price.usd = 1.12;
 			});
 	}
 
@@ -22,7 +24,7 @@
 
 		var dpp = dollarPerPod();
 		var amount = 1;
-		var steemCost = (dpp / steemDollar) * amount;
+		var steemCost = (steemDollar / dpp) * amount;
 
 		console.log('steemCost', steemCost);		
 		return steemCost;
@@ -41,4 +43,8 @@
 		var totalCost = steemPerPod() * amount;
 		console.log('totalCost', totalCost);
 		return totalCost;
+	}
+
+	function calculateBonusPods(amount) {
+		return parseFloat(amount) * 0.5;
 	}
