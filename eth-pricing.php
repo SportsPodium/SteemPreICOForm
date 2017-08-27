@@ -21,9 +21,9 @@
 		$sql = 'INSERT INTO `' . $table . '` (`json`, `created_at`) VALUES ("' . addslashes(json_encode($buf[0])) . '", now())';
 
 		if ($conn->query($sql) === TRUE) {
-			echo "New record created successfully";
+			echo json_encode($buf[0]) . "\n";
 		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
+			echo "Error: " . $sql . "\n" . $conn->error . "\n";
 		}
 
 		$conn->close();

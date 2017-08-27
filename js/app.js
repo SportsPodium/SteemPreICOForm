@@ -73,22 +73,25 @@ var transfer = function(username, password, amount, memo, pods, podsBonus, podsT
 	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo, pods: pods, podsBonus: podsBonus, podsTotal: podsTotal, dollarPrice: dollarPrice});
 
 	check(dollarPrice, function() {
-		log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, podsBonus, podsTotal, dollarPrice, function(r) { 
-			cb(null, r); 
+
+		steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
+			console.log(err, result);
+			if (err) {
+				cb(err, null);
+				return;
+			}
+			log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, podsBonus, podsTotal, dollarPrice, function(r) { 
+				cb(null, result[0]); 
+			});			
 		});
+
+
+
 	}, function() {
 		cb('Not enough PODS for sale');
 	})
 
 	return false;
-	steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
-		console.log(err, result);
-		if (err) {
-			cb(err, null);
-			return;
-		}
-		return cb(err, result[0]);
-	});
 
 	return false;
 };
