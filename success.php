@@ -16,12 +16,15 @@
 	$conn->close();
 
 	$conn = connect_mysql();
-	$sql = 'SELECT SUM(pods) AS total_pods FROM `purchases` WHERE username = "' . addslashes($_GET['username']) . '"';
+	$sql = 'SELECT * FROM `purchases` WHERE username = "' . addslashes($_GET['username']) . '" ORDER BY id DESC';
 
 	$rs = $conn->query($sql);
-	$row = $rs->fetch_object();
 
-	$totalPods = $row->total_pods;
+	$total = [
+		'pods' => 0,
+		'podsBonus' => 0,
+		'podsTotal' => 0,
+	];
 ?>
 
 <html>
@@ -64,7 +67,36 @@
 			</div>	
 		</form>	
 		<h1 style="text-align: center;">Thank you for reserving your PODS</h1>
-		<p style="text-align: center;">You have purchased a total of <b><?php echo number_format($totalPods, 3); ?> PODS</b></p>
+		<table class="table">
+			<tr>
+				<th width="1%">Date</th>
+				<th>Amount</th>
+				<th nowrap style="text-align: right;" width="1%">Pods</th>
+				<th nowrap style="text-align: right;" width="1%">Bonus Pods</th>
+				<th nowrap style="text-align: right;" width="1%">Total Pods</th>
+			</tr>
+			<?php while ($row = $rs->fetch_object()) { ?>
+				<tr>
+					<td nowrap><?php echo $row->created_at; ?></td>
+					<td><?php echo $row->amount; ?></td>
+					<td style="text-align:right;"><?php echo number_format($row->pods, 3); ?></td>
+					<td style="text-align:right;"><?php echo number_format($row->podsBonus, 3); ?></td>
+					<td style="text-align:right;"><?php echo number_format($row->podsTotal, 3); ?></td>
+				</tr>
+				<?php 
+					$total['pods'] += $row->pods;
+					$total['podsBonus'] += $row->podsBonus;
+					$total['podsTotal'] += $row->podsTotal;
+				?>
+			<?php } ?>
+			<tr>
+					<td nowrap>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td style="text-align:right;"><?php echo number_format($total['pods'], 3); ?></td>
+					<td style="text-align:right;"><?php echo number_format($total['podsBonus'], 3); ?></td>
+					<td style="text-align:right;"><?php echo number_format($total['podsTotal'], 3); ?></td>
+				</tr>
+		</table>
 	</div>
 </body>
 </html>	
