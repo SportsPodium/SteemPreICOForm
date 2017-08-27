@@ -210,6 +210,7 @@
 		var $formTransfer = $('#transfer-form');
 		var $lookupButtonContainer = $('#lookup-button-container');
 		var $buttonSubmit = $('#submit-button');
+		var $formThankyou = $('#thankyou-form');
 		var account = {};
 		var transfer_type = 'STEEM';
 
@@ -273,8 +274,7 @@
 					$buttonSubmit.prop('disabled', false);
 					return;
 				}
-				$formTransfer.hide();
-				$formThankyou.show();
+				location.href = 'success.php';
 			});
 			return false;
 		});		
