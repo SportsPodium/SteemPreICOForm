@@ -67,7 +67,7 @@
 			</div>	
 		</form>	
 		<h1 style="text-align: center;">Thank you for reserving your PODS</h1>
-		<table class="table">
+		<table class="table table-striped table-bordered table-condensed table-hover">
 			<tr>
 				<th width="1%">Date</th>
 				<th>Amount</th>
