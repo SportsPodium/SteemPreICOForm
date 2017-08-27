@@ -69,8 +69,8 @@
 		<table class="table table-striped table-bordered table-condensed table-hover">
 			<tr>
 				<th width="1%">Date</th>
-				<th width="1%">Username</th>
-				<th style="text-align: right;">Amount</th>
+				<th>Username</th>
+				<th nowrap width="1%" style="text-align: right;">Amount</th>
 				<th nowrap style="text-align: right;" width="1%">Pods</th>
 				<th nowrap style="text-align: right;" width="1%">Bonus Pods</th>
 				<th nowrap style="text-align: right;" width="1%">Total Pods</th>
@@ -78,11 +78,11 @@
 			<?php while ($row = $rs->fetch_object()) { ?>
 				<tr>
 					<td nowrap><?php echo $row->created_at; ?></td>
-					<td nowrap><?php echo $row->username; ?></td>
-					<td style="text-align: right;"><?php echo $row->amount; ?></td>
-					<td style="text-align:right;"><?php echo number_format($row->pods, 3); ?></td>
-					<td style="text-align:right;"><?php echo number_format($row->podsBonus, 3); ?></td>
-					<td style="text-align:right;"><?php echo number_format($row->podsTotal, 3); ?></td>
+					<td><?php echo $row->username; ?></td>
+					<td nowrap style="text-align:right;"><?php echo $row->amount; ?></td>
+					<td nowrap style="text-align:right;"><?php echo number_format($row->pods, 3); ?></td>
+					<td nowrap style="text-align:right;"><?php echo number_format($row->podsBonus, 3); ?></td>
+					<td nowrap style="text-align:right;"><?php echo number_format($row->podsTotal, 3); ?></td>
 				</tr>
 				<?php 
 					$total['pods'] += $row->pods;
@@ -92,6 +92,7 @@
 			<?php } ?>
 			<tr>
 					<th nowrap>&nbsp;</th>
+					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 					<th style="text-align:right;"><?php echo number_format($total['pods'], 3); ?></th>
 					<th style="text-align:right;"><?php echo number_format($total['podsBonus'], 3); ?></th>
