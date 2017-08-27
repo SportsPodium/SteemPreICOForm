@@ -226,7 +226,7 @@
 			var val = $(this).val();
 			var pods = calculatePods(val, transfer_type);
 			var podsBonus = calculateBonusPods(pods);
-			var podsTotal = pods + podsBonus;
+			var podsTotal = parseFloat(pods) + parseFloat(podsBonus);
 			$pods.val(pods);
 			$podsBonus.val(podsBonus);
 			$podsTotal.val(podsTotal);
