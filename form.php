@@ -213,6 +213,7 @@
 		var $availableSteem = $('#available-steem');
 		var $availableSBD = $('#available-sbd');
 		var $formTransfer = $('#transfer-form');
+		var $formAuthentication = $('#authentication-form');
 		var $lookupButtonContainer = $('#lookup-button-container');
 		var $buttonSubmit = $('#submit-button');
 		var $formThankyou = $('#thankyou-form');
@@ -223,14 +224,16 @@
 		$steemDollarPrice.html('$ ' + sbdPrice.price_usd);
 		$ethereumPrice.html('$ ' + ethPrice.price_usd);
 
-		$('#authentication-form').on('submit', function() {
+		$formAuthentication.on('submit', function() {
 			console.log('submit form');
 			var username = $username.val();
+			$('button', $formAuthentication).prop('disabled', true);
 			getAccountDetails(username, function(err, response) {
 				console.log('submit form', err, response);
 				if (err || response === false) {
 					alert('Account not found');
 					$username.val('').focus();
+					$('button', $formAuthentication).prop('disabled', false);
 					return;
 				}
 				account = response;
