@@ -77,7 +77,7 @@ var transfer = function(username, password, amount, memo, pods, podsBonus, podsT
 		steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
 			console.log(err, result);
 			if (err) {
-				cb(err, null);
+				cb('Error attemping to purchase PODS', null);
 				return;
 			}
 			log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, podsBonus, podsTotal, dollarPrice, function(r) { 
