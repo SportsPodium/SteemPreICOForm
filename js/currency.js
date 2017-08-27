@@ -20,10 +20,10 @@
 	var steemPrice = <?php echo $steem; ?>;
 	var sbdPrice = <?php echo $steemDollar; ?>;
 
-	function steemPerPod(_price) {
+	function steemPerPod(_price, currency) {
 		var sd = _price.price_usd;
 
-		var dpp = dollarPerPod();
+		var dpp = dollarPerPod(currency);
 		var amount = 1;
 		var steemCost = (sd / dpp) * amount;
 
@@ -31,9 +31,9 @@
 		return steemCost;
 	}
 
-	function dollarPerPod() {
+	function dollarPerPod(currency) {
 		var ethDollar = ethPrice.price_usd;
-		var steemDollar = steemPrice.price_usd;
+		var steemDollar = (currency == 'STEEM') ? steemPrice.price_usd : sbdPrice.price_usd;
 
 		var podsPerEthereum = 2000;
 		var dpp = ethDollar / podsPerEthereum;
@@ -41,7 +41,7 @@
 	}	
 
 	function calculatePods(amount, currency) {
-		var totalCost = steemPerPod((currency == 'STEEM') ? steemPrice : sbdPrice) * amount;
+		var totalCost = steemPerPod((currency == 'STEEM') ? steemPrice : sbdPrice, currency) * amount;
 		console.log('totalCost', totalCost, currency);
 		return totalCost;
 	}

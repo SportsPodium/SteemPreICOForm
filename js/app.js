@@ -11,7 +11,7 @@ var getAccountDetails = function(username, cb) {
 	});
 };
 
-var log = function(username, target, amount, memo, pods, dollarPrice, cb) {
+var log = function(username, target, amount, memo, pods, podsBonus, podsTotal, dollarPrice, cb) {
 	var ethDollar = ethPrice.price_usd;
 	var steem = steemPrice.price_usd;
 	var sbd = sbdPrice.price_usd;
@@ -32,6 +32,8 @@ var log = function(username, target, amount, memo, pods, dollarPrice, cb) {
 			amount: amount,
 			memo: memo,
 			pods: pods,
+			podsBonus: podsBonus,
+			podsTotal, podsTotal,
 			dollarPerPod: d,
 			dollarPrice: dollarPrice,
 		},
@@ -46,11 +48,11 @@ var log = function(username, target, amount, memo, pods, dollarPrice, cb) {
 	});
 };
 
-var transfer = function(username, password, amount, memo, pods, dollarPrice, cb) {
+var transfer = function(username, password, amount, memo, pods, podsBonus, podsTotal, dollarPrice, cb) {
 	var wif = steem.auth.toWif(username, password, 'active');
 
 	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo});
-	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, dollarPrice, function(r) { 
+	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, podsBonus, podsTotal, dollarPrice, function(r) { 
 		cb(null, r); 
 	});
 

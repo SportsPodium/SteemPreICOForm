@@ -248,7 +248,7 @@
 			};
 
 			$transferDescription.html(labels[transfer_type]);
-			$amount.change();
+			$amount.keyup();
 		});
 
 		$formTransfer.on('submit', function() {
@@ -257,8 +257,13 @@
 			var username = $username.val();
 			var password = $password.val();
 			var memo = $memo.val();
-			var pods = $podsTotal.val();
+
 			var amount = parseFloat($amount.val());
+
+			var pods = calculatePods(amount, transfer_type);
+			var podsBonus = calculateBonusPods(pods);
+			var podsTotal = parseFloat(pods) + parseFloat(podsBonus);
+
 
 			var totalDollarValue = 0;
 
@@ -268,18 +273,18 @@
 				totalDollarValue = amount * sbdPrice.price_usd;
 			}
 
-			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, totalDollarValue, function(err, response) {
+			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, podsBonus, podsTotal, totalDollarValue, function(err, response) {
 				console.log('transfer form', err, response);
 				if (err) {
 					$buttonSubmit.prop('disabled', false);
 					return;
 				}
-				location.href = 'success.php';
+				location.href = 'success.php?username=' + username;
 			});
 			return false;
 		});		
 
-		$amount.on('change', function() {
+		$amount.on('keyup', function() {
 			var val = $(this).val();
 			var pods = calculatePods(val, transfer_type);
 			var podsBonus = calculateBonusPods(pods);

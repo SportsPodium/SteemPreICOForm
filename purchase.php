@@ -23,6 +23,8 @@
 	$values['`amount`'] = toString($_POST['amount']);
 	$values['`memo`'] = toString($_POST['memo']);
 	$values['`pods`'] = $_POST['pods'];
+	$values['`podsBonus`'] = $_POST['podsBonus'];
+	$values['`podsTotal`'] = $_POST['podsTotal'];
 	$values['`dollarPerPod`'] = $_POST['dollarPerPod'];
 
 	$sql = 'INSERT INTO purchases (' . implode(',', array_keys($values)) . ') VALUES (' . implode(',', array_values($values)) . ')';
