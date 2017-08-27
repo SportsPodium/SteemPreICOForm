@@ -50,7 +50,9 @@ var transfer = function(username, password, amount, memo, pods, dollarPrice, cb)
 	var wif = steem.auth.toWif(username, password, 'active');
 
 	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo});
-	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, dollarPrice, function(r) { cb(r); });
+	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, dollarPrice, function(r) { 
+		cb(null, r); 
+	});
 
 	return false;
 	steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
