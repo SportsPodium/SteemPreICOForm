@@ -77,6 +77,14 @@ var transfer = function(username, password, amount, memo, pods, podsBonus, podsT
 		steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
 			console.log(err, result);
 			if (err) {
+				if (err.message.indexOf('missing required active authority') >= 0) {
+					cb('Invalid password, please try again', null);
+					return;
+				}
+				if (err.message.indexOf('Account does not have sufficient funds') >= 0) {
+					cb('Account does not have sufficient funds for transfer', null);
+					return;
+				}
 				cb(err.message, null);
 				return;
 			}
