@@ -1,3 +1,46 @@
+<?php
+	include 'sql.php';
+
+	$maxDollars = 500000;
+
+	$conn = connect_mysql();
+		
+	$sql = 'SELECT SUM(dollarPerPod * pods) AS total_dollars FROM `purchases`';
+
+	$rs = $conn->query($sql);
+
+	$row = $rs->fetch_object();
+
+	$totalDollars = round($row->total_dollars, 2);
+	$percentMaxDollars = round($totalDollars / $maxDollars * 100);
+
+	$conn->close();
+
+	if ($totalDollars > $maxDollars) {
+		header('location: done.php');
+		exit;
+	}
+?>
+<form class="form-horizontal">
+	<div class="form-group">
+		<label for="username" class="col-sm-4 control-label">total dollars</label>
+		<div class="col-sm-6">
+			<p class="form-control-static">US$ <?php echo number_format($totalDollars, 2); ?> / US$ <?php echo number_format($maxDollars, 2); ?></p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="username" class="col-sm-4 control-label">percent sold</label>
+		<div class="col-sm-6" style="margin-top:5px">
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percentMaxDollars; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $percentMaxDollars; ?>%">
+					<span class="sr-only"><?php echo $percentMaxDollars; ?>% Complete</span>
+				</div>
+			</div>
+
+		</div>
+	</div>	
+</form>
+
 <form class="form-horizontal" id="authentication-form">
 	<div class="form-group" id="username-container">
 		<label for="username" class="col-sm-4 control-label">steemit username</label>
@@ -26,16 +69,23 @@
 </form>
 <form class="form-horizontal" style="display: none;" id="transfer-form">
 	<div class="form-group">
-		<label for="password" class="col-sm-4 control-label">current ethereum $ price</label>
+		<label for="password" class="col-sm-4 control-label">current ethereum price</label>
 		<div class="col-sm-6">
 			<p class="form-control-static" id="eth-price">unknown</p>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label for="password" class="col-sm-4 control-label">current steem $ price</label>
+		<label for="password" class="col-sm-4 control-label">current steem price</label>
 		<div class="col-sm-6">
 			<p class="form-control-static" id="steem-price">unknown</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="password" class="col-sm-4 control-label">current steem dollar price</label>
+		<div class="col-sm-6">
+			<p class="form-control-static" id="steem-dollar-price">unknown</p>
 		</div>
 	</div>
 
@@ -141,6 +191,7 @@
 		
 		var $steemPrice = $('#steem-price');
 		var $ethereumPrice = $('#eth-price');
+		var $steemDollarPrice = $('#steem-dollar-price');
 
 		var $username = $('#username');
 		var $password = $('#password');
@@ -162,12 +213,9 @@
 		var account = {};
 		var transfer_type = 'STEEM';
 
-		$.when(
-			getEthereumPrice(),
-			getSteemPrice()).then(function() {
-				$steemPrice.html('$ ' + steemPrice.price.usd);
-				$ethereumPrice.html('$ ' + ethPrice.price.usd);
-			});
+		$steemPrice.html('$ ' + steemPrice.price_usd);
+		$steemDollarPrice.html('$ ' + sbdPrice.price_usd);
+		$ethereumPrice.html('$ ' + ethPrice.price_usd);
 
 		$('#authentication-form').on('submit', function() {
 			console.log('submit form');
@@ -198,7 +246,8 @@
 				SBD: 'amount of SBD'
 			};
 
-			$transferDescription.html(labels[transfer_type]); 
+			$transferDescription.html(labels[transfer_type]);
+			$amount.change();
 		});
 
 		$formTransfer.on('submit', function() {
@@ -210,7 +259,15 @@
 			var pods = $podsTotal.val();
 			var amount = parseFloat($amount.val());
 
-			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, function(err, response) {
+			var totalDollarValue = 0;
+
+			if (transfer_type == 'STEEM') {
+				totalDollarValue = amount * steemPrice.price_usd;
+			} else {
+				totalDollarValue = amount * sbdPrice.price_usd;
+			}
+
+			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, totalDollarValue, function(err, response) {
 				console.log('transfer form', err, response);
 				if (err) {
 					$buttonSubmit.prop('disabled', false);

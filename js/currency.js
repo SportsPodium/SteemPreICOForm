@@ -1,38 +1,39 @@
-	var ethPrice = {};
-	var steemPrice = {};
-	function getEthereumPrice() {
-		return $.get('https://coinmarketcap-nexuist.rhcloud.com/api/eth')
-			.then(function(result) {
-				console.log('ethereum.get', result);
-				ethPrice = result;
-				ethPrice.price.usd = 331.877;
-			});
+<?php
+	include_once(dirname(dirname(__FILE__)) . '/sql.php');
 
+	function getCurrency($table) {
+		$conn = connect_mysql();
+		$sql = 'SELECT `json` FROM `' . $table . '` ORDER BY `id` DESC LIMIT 1';
+		$rs = $conn->query($sql);
+		$row = $rs->fetch_object();
+
+		$val = $row->json;
+		$conn->close();
+		return $val;
 	}
 
-	function getSteemPrice() {
-		return $.get('https://coinmarketcap-nexuist.rhcloud.com/api/Steem')
-			.then(function(result) {
-				console.log('steem.get', result);
-				steemPrice = result;
-				steemPrice.price.usd = 1.12;
-			});
-	}
+	$eth = getCurrency('eth');
+	$steem = getCurrency('steem');
+	$steemDollar = getCurrency('steemDollar');
+?>
+	var ethPrice = <?php echo $eth; ?>;
+	var steemPrice = <?php echo $steem; ?>;
+	var sbdPrice = <?php echo $steemDollar; ?>;
 
-	function steemPerPod() {
-		var steemDollar = steemPrice.price.usd;
+	function steemPerPod(_price) {
+		var sd = _price.price_usd;
 
 		var dpp = dollarPerPod();
 		var amount = 1;
-		var steemCost = (steemDollar / dpp) * amount;
+		var steemCost = (sd / dpp) * amount;
 
 		console.log('steemCost', steemCost);		
 		return steemCost;
 	}
 
 	function dollarPerPod() {
-		var ethDollar = ethPrice.price.usd;
-		var steemDollar = steemPrice.price.usd;
+		var ethDollar = ethPrice.price_usd;
+		var steemDollar = steemPrice.price_usd;
 
 		var podsPerEthereum = 2000;
 		var dpp = ethDollar / podsPerEthereum;
@@ -40,8 +41,8 @@
 	}	
 
 	function calculatePods(amount, currency) {
-		var totalCost = steemPerPod() * amount;
-		console.log('totalCost', totalCost);
+		var totalCost = steemPerPod((currency == 'STEEM') ? steemPrice : sbdPrice) * amount;
+		console.log('totalCost', totalCost, currency);
 		return totalCost;
 	}
 

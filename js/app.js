@@ -11,9 +11,10 @@ var getAccountDetails = function(username, cb) {
 	});
 };
 
-var log = function(username, target, amount, memo, pods, cb) {
-	var ethDollar = ethPrice.price.usd;
-	var steemDollar = steemPrice.price.usd;
+var log = function(username, target, amount, memo, pods, dollarPrice, cb) {
+	var ethDollar = ethPrice.price_usd;
+	var steem = steemPrice.price_usd;
+	var sbd = sbdPrice.price_usd;
 	var d = dollarPerPod();
 
 	$.ajax({
@@ -22,14 +23,17 @@ var log = function(username, target, amount, memo, pods, cb) {
 		data: {
 			ethPrice: ethPrice,
 			steemPrice: steemPrice,
+			sbdPrice: sbdPrice,
 			eth: ethDollar,
-			steem: steemDollar,
+			steem: steem,
+			sbd: sbd,
 			username: username,
 			target: target,
 			amount: amount,
 			memo: memo,
 			pods: pods,
 			dollarPerPod: d,
+			dollarPrice: dollarPrice,
 		},
 		success: function(result) {
 			console.log('log.success', result);
@@ -42,11 +46,11 @@ var log = function(username, target, amount, memo, pods, cb) {
 	});
 };
 
-var transfer = function(username, password, amount, memo, pods, cb) {
+var transfer = function(username, password, amount, memo, pods, dollarPrice, cb) {
 	var wif = steem.auth.toWif(username, password, 'active');
 
 	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo});
-	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, function(r) { cb(r); });
+	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, dollarPrice, function(r) { cb(r); });
 
 	return false;
 	steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {

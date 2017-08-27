@@ -1,16 +1,6 @@
 <?php
-	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-	$server = $url["host"];
-	$username = $url["user"];
-	$password = $url["pass"];
-	$db = substr($url["path"], 1);
-
-	$conn = new mysqli($server, $username, $password, $db);
-
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+	include 'sql.php';
+	$conn = connect_mysql();
 
 	function toJson($s) {
 		return '"' . addslashes(json_encode($s)) . '"';
@@ -24,15 +14,16 @@
 	$values['`created_at`'] = 'now()';
 	$values['`ethPrice`'] = toJson($_POST['ethPrice']);
 	$values['`steemPrice`'] = toJson($_POST['steemPrice']);
+	$values['`sbdPrice`'] = toJson($_POST['sbdPrice']);
 	$values['`eth`'] = $_POST['eth'];
 	$values['`steem`'] = $_POST['steem'];
+	$values['`sbd`'] = $_POST['sbd'];
 	$values['`username`'] = toString($_POST['username']);
 	$values['`target`'] = toString($_POST['target']);
 	$values['`amount`'] = toString($_POST['amount']);
 	$values['`memo`'] = toString($_POST['memo']);
 	$values['`pods`'] = $_POST['pods'];
 	$values['`dollarPerPod`'] = $_POST['dollarPerPod'];
-	print_r($values);
 
 	$sql = 'INSERT INTO purchases (' . implode(',', array_keys($values)) . ') VALUES (' . implode(',', array_values($values)) . ')';
 
