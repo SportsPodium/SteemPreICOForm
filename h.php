@@ -70,7 +70,7 @@
 			<tr>
 				<th width="1%">Date</th>
 				<th width="1%">Username</th>
-				<th>Amount</th>
+				<th style="text-align: right;">Amount</th>
 				<th nowrap style="text-align: right;" width="1%">Pods</th>
 				<th nowrap style="text-align: right;" width="1%">Bonus Pods</th>
 				<th nowrap style="text-align: right;" width="1%">Total Pods</th>
@@ -79,7 +79,7 @@
 				<tr>
 					<td nowrap><?php echo $row->created_at; ?></td>
 					<td nowrap><?php echo $row->username; ?></td>
-					<td><?php echo $row->amount; ?></td>
+					<td style="text-align: right;"><?php echo $row->amount; ?></td>
 					<td style="text-align:right;"><?php echo number_format($row->pods, 3); ?></td>
 					<td style="text-align:right;"><?php echo number_format($row->podsBonus, 3); ?></td>
 					<td style="text-align:right;"><?php echo number_format($row->podsTotal, 3); ?></td>
