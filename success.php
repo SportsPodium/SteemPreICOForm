@@ -90,11 +90,11 @@
 				?>
 			<?php } ?>
 			<tr>
-					<td nowrap>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td style="text-align:right;"><?php echo number_format($total['pods'], 3); ?></td>
-					<td style="text-align:right;"><?php echo number_format($total['podsBonus'], 3); ?></td>
-					<td style="text-align:right;"><?php echo number_format($total['podsTotal'], 3); ?></td>
+					<th nowrap>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th style="text-align:right;"><?php echo number_format($total['pods'], 3); ?></th>
+					<th style="text-align:right;"><?php echo number_format($total['podsBonus'], 3); ?></th>
+					<th style="text-align:right;"><?php echo number_format($total['podsTotal'], 3); ?></th>
 				</tr>
 		</table>
 	</div>
