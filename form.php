@@ -63,7 +63,7 @@
 	</div>
 	<div id="alert-lookup-error" class="form-group" style="display: none;">
 		<div class="col-sm-12">
-			<div class="alert alert-error">Account lookup Failed</div>
+			<div class="alert alert-danger">Account lookup Failed</div>
 		</div>
 	</div>
 </form>
@@ -164,7 +164,11 @@
 			<input type="password" class="form-control" id="password" required placeholder="password">
 		</div>
 	</div>
-
+	<div id="alert-transfer-error" class="form-group" style="display: none;">
+		<div class="col-sm-12">
+			<div class="alert alert-danger">Error occured</div>
+		</div>
+	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-6">
 			<button id="submit-button" type="submit" class="btn btn-primary">Make Contribution</button>
@@ -203,6 +207,7 @@
 
 		var $alertSuccess = $('#alert-lookup-success');
 		var $alertError = $('#alert-lookup-error');
+		var $transferError = $('#alert-transfer-error');
 		var $passwordContainer = $('#password-container');
 		var $usernameContainer = $('#username-container');
 		var $availableSteem = $('#available-steem');
@@ -254,6 +259,7 @@
 		$formTransfer.on('submit', function() {
 			console.log('submit form');
 			$buttonSubmit.prop('disabled', true);
+			$transferError.hide();
 			var username = $username.val();
 			var password = $password.val();
 			var memo = $memo.val();
@@ -277,6 +283,8 @@
 				console.log('transfer form', err, response);
 				if (err) {
 					$buttonSubmit.prop('disabled', false);
+					$('.alert-danger', $transferError).html(err);
+					$transferError.show();
 					return;
 				}
 				location.href = 'success.php?username=' + username;

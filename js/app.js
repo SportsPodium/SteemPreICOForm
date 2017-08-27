@@ -48,13 +48,37 @@ var log = function(username, target, amount, memo, pods, podsBonus, podsTotal, d
 	});
 };
 
+var check = function(amount, successCallback, failedCallback) {
+	$.ajax({
+		method: 'POST',
+		url: '/check.php',
+		data: {
+			amount: amount
+		},
+		success: function(r) {
+			var result = JSON.parse(r);
+			console.log('check.success', result);
+			if (result.success) {
+				successCallback();
+			} else {
+				failedCallback();
+			}
+		}
+	})
+}
+
 var transfer = function(username, password, amount, memo, pods, podsBonus, podsTotal, dollarPrice, cb) {
 	var wif = steem.auth.toWif(username, password, 'active');
 
-	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo});
-	log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, podsBonus, podsTotal, dollarPrice, function(r) { 
-		cb(null, r); 
-	});
+	console.log('transfer', {username: username, to: '<?php echo getSteemitUsername() ?>', amount: amount, memo: memo, pods: pods, podsBonus: podsBonus, podsTotal: podsTotal, dollarPrice: dollarPrice});
+
+	check(dollarPrice, function() {
+		log(username, '<?php echo getSteemitUsername() ?>', amount, memo, pods, podsBonus, podsTotal, dollarPrice, function(r) { 
+			cb(null, r); 
+		});
+	}, function() {
+		cb('Not enough PODS for sale');
+	})
 
 	return false;
 	steem.broadcast.transfer(wif, username, '<?php echo getSteemitUsername() ?>', amount, memo, function(err, result) {
