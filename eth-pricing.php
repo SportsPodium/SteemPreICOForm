@@ -5,8 +5,7 @@
 
 		$buf = json_decode(file_get_contents($url));
 
-		//$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-		$url = parse_url('mysql://root:root@127.0.0.1/currency');
+		$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 		$server = $url["host"];
 		$username = $url["user"];
