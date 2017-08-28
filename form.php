@@ -47,7 +47,7 @@
 		<div class="col-sm-6">
 			<div class="input-group">
 				<span class="input-group-addon">@</span>
-				<input type="text" class="form-control" id="username" required placeholder="steemit username">
+				<input type="email" class="form-control" id="username" required placeholder="steemit username">
 			</div>
 		</div>
 	</div>
