@@ -14,7 +14,6 @@
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         curl_close($ch);
-		print_r($result);
 
 	// Laravel-specific log writing method
         // Log::info("Sent to Slack: " . $message, array('context' => 'Notifications'));
