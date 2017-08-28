@@ -2,6 +2,25 @@
 	include 'sql.php';
 	$conn = connect_mysql();
 
+	function slack($message) {
+        $data = "payload=" . json_encode(array(
+                "text" =>  $message,
+            ));
+	
+	// You can get your webhook endpoint from your Slack settings
+        $ch = curl_init(getenv('SLACK_WEBHOOK_URL'));
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+		print_r($result);
+
+	// Laravel-specific log writing method
+        // Log::info("Sent to Slack: " . $message, array('context' => 'Notifications'));
+        return $result;
+    }
+
 	function toJson($s) {
 		return '"' . addslashes(json_encode($s)) . '"';
 	}
@@ -27,12 +46,30 @@
 	$values['`podsTotal`'] = $_POST['podsTotal'];
 	$values['`dollarPerPod`'] = $_POST['dollarPerPod'];
 
+	$memo = $_POST['memo'];
+
 	$sql = 'INSERT INTO purchases (' . implode(',', array_keys($values)) . ') VALUES (' . implode(',', array_values($values)) . ')';
 
 	if ($conn->query($sql) === TRUE) {
 		echo "New record created successfully";
+		slack("A new `POD` sale just took place :champagne:!!\n`$memo`");
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 
 	$conn->close();
+
+
+	$ch = curl_init();
+
+	//set the url, number of POST vars, POST data
+	curl_setopt($ch,CURLOPT_URL, $url);
+	curl_setopt($ch,CURLOPT_POST, count($fields));
+	curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+
+	//execute post
+	$result = curl_exec($ch);
+
+	//close connection
+	curl_close($ch);
+
