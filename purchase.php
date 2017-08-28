@@ -40,6 +40,7 @@
 	$values['`target`'] = toString($_POST['target']);
 	$values['`amount`'] = toString($_POST['amount']);
 	$values['`memo`'] = toString($_POST['memo']);
+	$values['`email`'] = toString($_POST['email']);
 	$values['`pods`'] = $_POST['pods'];
 	$values['`podsBonus`'] = $_POST['podsBonus'];
 	$values['`podsTotal`'] = $_POST['podsTotal'];

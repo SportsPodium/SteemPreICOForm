@@ -159,6 +159,12 @@
 		</div>
 	</div>
 	<div class="form-group" id="password-container">
+		<label for="email" class="col-sm-4 control-label">email address</label>
+		<div class="col-sm-6">
+			<input type="email" class="form-control" id="email" required placeholder="email address">
+		</div>
+	</div>
+	<div class="form-group" id="password-container">
 		<label for="password" class="col-sm-4 control-label">steemit password</label>
 		<div class="col-sm-6">
 			<input type="password" class="form-control" id="password" required placeholder="password">
@@ -198,6 +204,7 @@
 		var $steemDollarPrice = $('#steem-dollar-price');
 
 		var $username = $('#username');
+		var $email = $('#email');
 		var $password = $('#password');
 		var $amount = $('#amount');
 		var $pods = $('#pods');
@@ -265,6 +272,7 @@
 			$transferError.hide();
 			var username = $username.val();
 			var password = $password.val();
+			var email = $email.val();
 			var memo = $memo.val();
 
 			var amount = parseFloat($amount.val());
@@ -282,7 +290,7 @@
 				totalDollarValue = amount * sbdPrice.price_usd;
 			}
 
-			transfer(username, password, amount.toFixed(3) + ' ' + transfer_type, memo, pods, podsBonus, podsTotal, totalDollarValue, function(err, response) {
+			transfer(username, password, email, amount.toFixed(3) + ' ' + transfer_type, memo, pods, podsBonus, podsTotal, totalDollarValue, function(err, response) {
 				console.log('transfer form', err, response);
 				if (err) {
 					$buttonSubmit.prop('disabled', false);

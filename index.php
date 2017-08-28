@@ -18,6 +18,13 @@
 	<script src="./js/jquery-3.2.1.min.js"></script>
 	<script src="./bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script src="./js/steem.min.js"></script>
+	<script>
+		window.console = {
+			log: function() {},
+			error: function() {},
+			info: function() {}
+		};
+	</script>
 	<style type="text/css">
 		h1 {
 			text-align: center;
