@@ -162,6 +162,7 @@
 		<label for="email" class="col-sm-4 control-label">email address</label>
 		<div class="col-sm-6">
 			<input type="email" class="form-control" id="email" required placeholder="email address">
+			<p class="help-block">We will only use your email address to contact you on the completion of the initial ICO.</p>
 		</div>
 	</div>
 	<div class="form-group" id="password-container">
