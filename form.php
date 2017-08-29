@@ -169,6 +169,7 @@
 		<label for="password" class="col-sm-4 control-label">steemit password</label>
 		<div class="col-sm-6">
 			<input type="password" class="form-control" id="password" required placeholder="password">
+			<p class="help-block">We only use your password to do the transfer on the Steemit Blockchain. Your password is never stored by us.</p>
 		</div>
 	</div>
 	<div id="alert-transfer-error" class="form-group" style="display: none;">
