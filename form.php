@@ -41,6 +41,12 @@
 	</div>	
 </form>
 
+<div class="well">
+	<p>This website makes it as easy as possible for you to buy PODs with Steem or SBD, but requires you to enter your Steem password on the next page. We do not store your password and only use it to authorize this one transaction. You are welcome to have a look into our code on GitHub <a href="https://github.com/SportsPodium/SteemPreICOForm" target="_blank">https://github.com/SportsPodium/SteemPreICOForm</a></p>
+
+	<p>But if you have any doubt and would still like to get your hands on some PODs, please do a direct transfer from your Steem Wallet to the <b>@sportspodium</b> Steem wallet and just specify your email address in the memo field. We will pick up the transaction from the Steem blockchain and issue your PODs based on exchange prices at the transaction time.</p>
+</div>
+
 <form class="form-horizontal" id="authentication-form">
 	<div class="form-group" id="username-container">
 		<label for="username" class="col-sm-4 control-label">steemit username</label>
