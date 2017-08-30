@@ -15,8 +15,13 @@
 
 	$conn->close();
 
+	$username = $_GET['username'];
+	if (substr($username, 0, 1) == '@') {
+		$username = substr($username, 1);
+	}
+
 	$conn = connect_mysql();
-	$sql = 'SELECT * FROM `purchases` WHERE username = "' . addslashes($_GET['username']) . '" ORDER BY id DESC';
+	$sql = 'SELECT * FROM `purchases` WHERE username = "' . addslashes($username) . '" ORDER BY created_at DESC';
 
 	$rs = $conn->query($sql);
 
