@@ -59,7 +59,8 @@
 	</div>
 	<div class="form-group" id="lookup-button-container">
 		<div class="col-sm-offset-4 col-sm-6">
-			<button type="submit" class="btn btn-primary">Lookup Account</button>
+			<button id="buy-pods" type="submit" class="btn btn-primary">Buy PODs</button>
+			<button id="lookup-pods" class="btn btn-success">See POD Allocation</button>
 		</div>
 	</div>
 	<div id="alert-lookup-success" class="form-group" style="display: none;">
@@ -231,6 +232,7 @@
 		var $formAuthentication = $('#authentication-form');
 		var $lookupButtonContainer = $('#lookup-button-container');
 		var $buttonSubmit = $('#submit-button');
+		var $buttonLookupPods = $('#lookup-pods');
 		var $formThankyou = $('#thankyou-form');
 		var account = {};
 		var transfer_type = 'STEEM';
@@ -238,6 +240,22 @@
 		$steemPrice.html('$ ' + steemPrice.price_usd);
 		$steemDollarPrice.html('$ ' + sbdPrice.price_usd);
 		$ethereumPrice.html('$ ' + ethPrice.price_usd);
+
+		$buttonLookupPods.on('click', function() {
+			var username = $username.val();
+			$('button', $formAuthentication).prop('disabled', true);
+			getAccountDetails(username, function(err, response) {
+				console.log('submit form', err, response);
+				if (err || response === false) {
+					alert('Account not found');
+					$username.val('').focus();
+					$('button', $formAuthentication).prop('disabled', false);
+					return;
+				}
+				location.href = 'pods.php?username=' + username;
+			});
+			return false;
+		});
 
 		$formAuthentication.on('submit', function() {
 			console.log('submit form');
